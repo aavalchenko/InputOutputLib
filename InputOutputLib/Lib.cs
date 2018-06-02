@@ -4,28 +4,44 @@ using System.IO;
 namespace InputOutputLib
 {
     /// <summary>
-    /// Предосталвяет методы для вывода меню.
+    /// Предосталвяет меню. Поддерживает консольный вывод.
     /// </summary>
-    public static class Menu
+    public sealed class Menu
     {
         /// <summary>
-        /// Выводит меню, согласно данным в передаваемом массиве строк.
+        /// Инициализирует экземпляр класса Menu, содержащий строки меню.
+        /// </summary>
+        /// <param name="menuStrings">Строки меню.</param>
+        public Menu(string[] menuStrings)
+        {
+            MenuStrings = menuStrings;
+        }
+        /// <summary>
+        /// Возвращает массив строк-пунктов меню.
+        /// </summary>
+        private string[] MenuStrings { get; }
+        /// <summary>
+        /// Выводит меню, согласно данным в передаваемом массиве строк. Возвращает значение клавиши консоли.
         /// </summary>
         /// <param name="menuText">Массив строк меню, где на [0] индексе находится название меню.</param>
-        public static void Show(string[] menuText)
+        public ConsoleKey Show()
         {
             short count = 0;
             Console.Clear(); // Очищаем консоль перед выводом меню
-            Console.WriteLine("Переключение между пунктами меню осуществляется с помощью NumPad-клавиатуры\n"); // Вывод вступительной строки
-            foreach (string menuString in menuText)
+            Console.WriteLine("Переключение между пунктами меню осуществляется с помощью цифровых клавиш [1;9] или NumPad-клавиатуры.\n"); // Вывод вступительной строки
+            foreach (string menuString in MenuStrings)
             {
                 if (count == 0)
+                {
                     Console.WriteLine(menuString);
+                    count++;
+                }
                 else
                     Console.WriteLine("<{0}> - " + menuString, count++);
-                count++;
             }
-            Console.WriteLine("<0> - Выход"); // Вывод переключателя уровней
+            Console.WriteLine("<Esc> - Выход"); // Вывод переключателя уровней
+            
+            return Console.ReadKey(true).Key;
         }
     }
     /// <summary>
@@ -153,4 +169,3 @@ namespace InputOutputLib
         }
     }
 }
-
