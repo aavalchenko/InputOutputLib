@@ -119,6 +119,14 @@ namespace InputOutputLib
             }
             return result;
         }
+        /// <summary>
+        /// Ждёт действия пользователя перед выполнением задачи.
+        /// </summary>
+        public static void Wait()
+        {
+            Console.WriteLine("Нажмите любую клавишу для продолжения.");
+            Console.ReadKey(true);
+        }
     }
     /// <summary>
     /// Предоставляет метод для записи данных в файл, а так же выступает в роли объекта работы с файлом.
